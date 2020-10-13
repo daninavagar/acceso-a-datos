@@ -63,7 +63,7 @@ public class TablaNumeros {
 				if (Tabla.get(i).getValor() < menor.getValor())
 					menor = Tabla.get(i);
 			}
-			System.out.println(menor.toString());
+			System.out.println("El número mas pequeño es: " +menor.toString());
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class TablaNumeros {
 				if (Tabla.get(i).getValor() > mayor.getValor())
 					mayor = Tabla.get(i);
 			}
-			System.out.println(mayor.toString());
+			System.out.println("El número mas grande es : " +mayor.toString());
 		}
 	}
 	
