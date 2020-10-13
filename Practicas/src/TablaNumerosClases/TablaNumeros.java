@@ -1,59 +1,99 @@
 package TablaNumerosClases;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import TablaNumerosClases.Main;
+import java.util.LinkedList;
 
+
+@SuppressWarnings("unused")
 public class TablaNumeros {
 	
-	private static ArrayList<Integer> Tabla = new ArrayList<Integer>();
-	private int posicion;
-	private int longitud;
+	private static ArrayList<Numero> Tabla = new ArrayList<Numero>();
+	Numero temp;
 	
 	
-	public TablaNumeros(ArrayList<Integer> Tabla, int posicion, int longitud) {
-		super();
-		TablaNumeros.Tabla = Tabla;
-		this.posicion = posicion;
-		this.longitud = longitud;
+	public void borrar() {
+		if (Tabla.size() == 0) {
+			System.out.println("NO HAY NADA");
+		} else {
+			System.out.println("Que prefieres: \n\t1. Borrar un número en concreto  \t2. Borrar el último");
+			int op = Main.Leer.nextInt();
+			switch (op) {
+				case 1:
+					int b=0;
+					do {
+						try {
+							System.out.println("Que numero quieres borrar, dime la posicion");
+							b = Main.Leer.nextInt();
+							Tabla.remove(b);
+						} catch (IndexOutOfBoundsException f) {
+							System.out.println("Te llevo al menu para que lo pienses mejor");
+						}
+					} while ((b < Tabla.size()) && (b > -1));					
+					break;
+				case 2:
+					Tabla.remove(Tabla.size()-1);
+					break;
+			}
+		}		
 	}
 	
-	public static void borrar(int numero) {
-		Tabla.remove(numero);
-	}
-	
-	public int getPosicion() {
-		return posicion;
-	}
-	
-	public static void imprimir() {
-		System.out.println(Tabla);
-	}
-	
-	public static void insertar(int numero) {
-		Tabla.add(numero);
-	}
-	
-	public static void menor(int menor) {
-		menor = Tabla.get(0);
-		for (int i=0; i < Tabla.size(); i++) {
-			if (Tabla.get(i) < menor)
-				menor = Tabla.get(i);
+	public void imprimir() {
+		if (Tabla.size() == 0) {
+			System.out.println("NO HAY NADA");
+		} else {
+			System.out.println(Tabla.toString());
 		}
-		System.out.println(menor);
 	}
 	
-	public static void mayor(int mayor) {
-		mayor = Tabla.get(0);
-		for (int i=0; i < Tabla.size(); i++) {
-			if (Tabla.get(i) > mayor)
-				mayor = Tabla.get(i);
+	public void insertarNumero() {
+		System.out.println("Introduce un numero: ");
+		Numero n = new Numero (Main.Leer.nextInt());
+		Tabla.add(n);
+	}
+	
+	
+	public void menor() {
+		if (Tabla.size() == 0) {
+			System.out.println("NO HAY NADA");
+		} else {
+			Numero menor;
+			menor = Tabla.get(0);
+			for (int i=0; i < Tabla.size(); i++) {
+				if (Tabla.get(i).getValor() < menor.getValor())
+					menor = Tabla.get(i);
+			}
+			System.out.println(menor.toString());
 		}
-		System.out.println(mayor);
 	}
 	
-	public static void ordenar() {
-		Collections.sort(Tabla);
-		for (int i: Tabla)
-			System.out.println(i);
+	public void mayor() {
+		if (Tabla.size() == 0) {
+			System.out.println("NO HAY NADA");
+		} else {
+			Numero mayor;
+			mayor = Tabla.get(0);
+			for (int i=0; i < Tabla.size(); i++) {
+				if (Tabla.get(i).getValor() > mayor.getValor())
+					mayor = Tabla.get(i);
+			}
+			System.out.println(mayor.toString());
+		}
+	}
+	
+	public void ordenar() {
+		if (Tabla.size() == 0) {
+			System.out.println("NO HAY NADA");
+		} else {
+			for (int i=0; i<Tabla.size(); i++) {
+				for (int f = 0; f<Tabla.size(); f++) {
+					if (Tabla.get(i).getValor() < Tabla.get(f).getValor()) {
+						int temp = Tabla.get(i).getValor();
+						Tabla.get(i).setValor(Tabla.get(f).getValor());
+						Tabla.get(f).setValor(temp);
+					}
+				}
+			} System.out.println(Tabla.toString());
+		}
 	}
 }

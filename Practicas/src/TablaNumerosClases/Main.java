@@ -6,17 +6,15 @@ import java.util.InputMismatchException;
 
 public class Main {
 	
-	static Scanner Leer = new Scanner (System.in);
+	static final Scanner Leer = new Scanner (System.in);
 
 	public static void main(String[] args) {
 		
 		
-		int opcion=0, numero, mayor = 0, menor = 0;
-		// boolean exit = false;
-		
-	
+		int opcion=0;
 		boolean exit=false;
-		
+		TablaNumeros TABLA = new TablaNumeros();
+
 		do {
 			
 			try {
@@ -30,35 +28,30 @@ public class Main {
 			
 			switch (opcion) {
 				case 1:
-					System.out.println("Dime un numero para el array");
-					numero = Leer.nextInt();
-					TablaNumeros.insertar(numero);
+					TABLA.insertarNumero();
 					break;
 				case 2:
-					System.out.println("Que numero quieres borrar, dime la posicion");
-					numero = Leer.nextInt();
-					TablaNumeros.borrar(numero);
+					TABLA.borrar();
 					break;
 				case 3:
-					TablaNumeros.imprimir();
+					TABLA.imprimir();
 					break;
 				case 4:
-					TablaNumeros.menor(menor);
+					TABLA.menor();
 					break;
 				case 5:
-					TablaNumeros.mayor(mayor);
+					TABLA.mayor();
 					break;
 				case 6:
-					TablaNumeros.ordenar();
+					TABLA.ordenar();
 					break;
 				case 7:
-					System.out.println("ADios");
+					System.out.println("GRACIAS POR VENIR");
 					exit = true;
 					break;
 			}
 			
-		} while (!exit);
-			
+		} while (!exit);	
 		Leer.close();
 	}
 	

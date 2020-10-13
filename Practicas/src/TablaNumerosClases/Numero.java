@@ -3,6 +3,7 @@ package TablaNumerosClases;
 public class Numero {
 
 	private int valor;
+	
 
 	public Numero(int valor) {
 		super();
@@ -20,4 +21,9 @@ public class Numero {
 	public String imprimir() {
 		return Integer.toString(valor);
 	}
+
+	@Override
+	public String toString() {
+		return this.imprimir();
+	}	
 }
