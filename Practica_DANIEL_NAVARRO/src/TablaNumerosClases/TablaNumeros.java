@@ -21,7 +21,7 @@ public class TablaNumeros {
 			switch (op) {
 				case 1:
 					int b=0;
-					do {
+					do {	
 						try {
 							System.out.println("Que numero quieres borrar, dime la posicion");
 							b = Main.Leer.nextInt();
@@ -48,7 +48,7 @@ public class TablaNumeros {
 	
 	public void insertarNumero() {
 		System.out.println("Introduce un numero: ");
-		Numero n = new Numero (Main.Leer.nextInt());
+		Numero n = new Numero (Main.Leer.nextFloat());
 		Tabla.add(n);
 	}
 	
@@ -88,7 +88,7 @@ public class TablaNumeros {
 			for (int i=0; i<Tabla.size(); i++) {
 				for (int f = 0; f<Tabla.size(); f++) {
 					if (Tabla.get(i).getValor() < Tabla.get(f).getValor()) {
-						int temp = Tabla.get(i).getValor();
+						float temp = Tabla.get(i).getValor();
 						Tabla.get(i).setValor(Tabla.get(f).getValor());
 						Tabla.get(f).setValor(temp);
 					}

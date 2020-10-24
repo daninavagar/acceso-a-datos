@@ -2,24 +2,25 @@ package TablaNumerosClases;
 
 public class Numero {
 
-	private int valor;
+	private float valor;
 	
 
-	public Numero(int valor) {
+	public Numero(float valor) {
 		super();
 		this.valor = valor;
 	}
 
-	public int getValor() {
+	public float getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 	
 	public String imprimir() {
-		return Integer.toString(valor);
+		return Float.toString(valor);
+				
 	}
 
 	@Override
