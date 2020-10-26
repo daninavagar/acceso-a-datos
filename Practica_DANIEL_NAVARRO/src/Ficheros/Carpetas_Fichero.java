@@ -153,7 +153,7 @@ public class Carpetas_Fichero {
 					};
 					
 					for (int i=0; i<create.length; i++) {
-						if (!create[i].getName().contains(".")) {
+						if (!create[i].getName().contains("jpg")) {
 							if (!create[i].mkdirs())
 								System.err.println("El directorio ya existe");
 						} else {

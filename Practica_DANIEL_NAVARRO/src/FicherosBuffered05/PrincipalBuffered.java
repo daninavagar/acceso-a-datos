@@ -5,31 +5,58 @@ import java.io.*;
 public class PrincipalBuffered {
 	
 	
-	public static void leerFichero(String nombre, String[] tabla) {
+	public static void escribirFichero(String nombre, String[] tabla) {
 		
 		try {
 			// 1. Creacion del fichero para leer
 			File fichero = new File(nombre);
+			FileWriter ficheroFW = new FileWriter(fichero);
+			BufferedWriter ficheroBW = new BufferedWriter(ficheroFW);
+			
+			// 2. Escribir datos en el fichero
+			for(int i=0; i<tabla.length; i++) {
+				ficheroBW.write(tabla[i]);
+				ficheroBW.newLine();
+			}
+			
+			
+			// 3. Cerrar el fichero
+			ficheroBW.close();
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+	}
+	
+	public static void leerFichero(String nombre, String[] tabla) {
+		
+		try {
+			// 1. Creacion del fichero
+			File fichero = new File(nombre);
 			FileReader ficheroR = new FileReader(fichero);
-			BufferedReader ficheroBF = new BufferedReader(ficheroR);
+			BufferedReader ficheroBR = new BufferedReader(ficheroR);
 			int posicion = 0;
-			String linea;
+			String linea = "";
 			
 			// 2. Lectura del fichero
-			linea = ficheroBF.readLine();
-			tabla[posicion] = linea;
 			
+			linea = ficheroBR.readLine();
+			while(linea != null) {
+				posicion++;
+				linea = ficheroBR.readLine();
+			}
 			
-			ficheroBF.close();
-			
-			
-			
-			
-			
+			// 3. Cerrar el fichero
+			ficheroBR.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	
 	public static void imprimirPantalla(String[] tabla) {
 		
@@ -47,16 +74,19 @@ public class PrincipalBuffered {
 
 	public static void main(String[] args) {
 		
-		// llamada a escibir fichero
-		
 		String []tablaNombres = {"Juan", "Ana Maria", "Eduardo", "David"};
 		
-		leerFichero("Prueba1.txt", tablaNombres);
+		
+		// Llamada a escribir el fichero
+		escribirFichero("PruebaNombres.txt", tablaNombres);
 		
 		// Vaciar la tabla
-		vaciarTabla(tablaNombres);
+		// vaciarTabla(tablaNombres);
+		// imprimirPantalla(tablaNombres);
+		leerFichero("PruebaNombres.txt", tablaNombres);
 		imprimirPantalla(tablaNombres);
-		leerFichero("Prueba1.txt", tablaNombres);
+		vaciarTabla(tablaNombres);
+		leerFichero("PruebaNombres.txt", tablaNombres);
 		imprimirPantalla(tablaNombres);
 		
 		
