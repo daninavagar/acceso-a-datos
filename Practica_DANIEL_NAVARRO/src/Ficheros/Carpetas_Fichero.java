@@ -31,8 +31,9 @@ public class Carpetas_Fichero {
 				System.out.println("\t+-------------------------------+");
 				System.out.println("\t| BIENVENIDO                	|");
 				System.out.println("\t| 1. Carpetas Forma Mala    	|");
-				System.out.println("\t| 2. Carpetas Forma Buena   	|");
-				System.out.println("\t| 3. Hola                       |");
+				System.out.println("\t| 2. Carpetas Forma Mala 2   	|");
+				System.out.println("\t| 3. Carpetas Forma Buena   	|");
+				System.out.println("\t| 4. Salir                      |");
 				System.out.println("\t+-------------------------------+");
 				opcion = Leer.nextInt();
 			} catch (InputMismatchException e) {
@@ -63,9 +64,9 @@ public class Carpetas_Fichero {
 						f_Script_js_2 = new File (dir_Scripts_js, "scripts2.js"),
 						f_Script_php_1 = new File (dir_Scripts_php, "cabecera.php"),
 						f_Script_php_2 = new File (dir_Scripts_php, "modelo.php"),
-						f_Im_alta = new File (dir_Imagenes_alta, "paisage.jpg"),
-						f_Im_media = new File (dir_Imagenes_media, "paisage.jpg"),
-						f_Im_baja = new File (dir_Imagenes_baja, "paisage.jpg");
+						f_Im_alta = new File (dir_Imagenes_alta, "paisaje.jpg"),
+						f_Im_media = new File (dir_Imagenes_media, "paisaje.jpg"),
+						f_Im_baja = new File (dir_Imagenes_baja, "paisaje.jpg");
 						
 						if (dir_Proyecto.mkdir()) {
 							dir_Estilos.mkdir();
@@ -130,6 +131,45 @@ public class Carpetas_Fichero {
 					
 					break;
 				case 3:
+					
+					File create[] = {
+							new File("Proyecto/Estilos/CSS4"),
+								new File("Proyecto/Estilos/CSS4", "estilo1.css"),
+								new File("Proyecto/Estilos/CSS4", "estilo2.css"),
+							new File("Proyecto/Estilos/CSS3"),
+							new File("Proyecto/Estilos/CSS3", "estilo3.css"),
+							new File("Proyecto/Scripts/js"),
+								new File("Proyecto/Scripts/js", "scripts1.js"),
+								new File("Proyecto/Scripts/js", "scripts2.js"),
+							new File("Proyecto/Scripts/php"),
+								new File("Proyecto/Scripts/php", "cabecera.php"),
+								new File("Proyecto/Scripts/php", "modelo.php"),
+							new File("Proyecto/Imagenes/alta"),
+								new File("Proyecto/Imagenes/alta", "paisaje.jpg"),
+							new File("Proyecto/Imagenes/media"),
+								new File("Proyecto/Imagenes/media", "paisaje.jpg"),
+							new File("Proyecto/Imagenes/baja"),
+								new File("Proyecto/Imagenes/baja", "paisaje.jpg")
+					};
+					
+					for (int i=0; i<create.length; i++) {
+						if (!create[i].getName().contains(".")) {
+							if (!create[i].mkdirs())
+								System.err.println("El directorio ya existe");
+						} else {
+							try {
+								create[i].createNewFile();
+							} catch (IOException e) {
+								System.err.println("Error al crear el fichero" + e.getMessage());
+							}
+							
+						}
+					}
+					
+					
+					
+					break;
+				case 4:
 					System.out.println("ADIOS");
 					exit = true;
 					break;
