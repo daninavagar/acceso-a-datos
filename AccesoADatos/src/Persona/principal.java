@@ -12,7 +12,7 @@ public class principal {
 
 		/* Crear carpeta y fichero */
 		File dir = new File("Personitas"),
-		file1 = new File(dir, "ObjetoPersona.txt");
+		file1 = new File(dir, "Coleccion.txt");
 		
 		if (dir.mkdir()) {
 			
@@ -34,15 +34,17 @@ public class principal {
 		
 		Scanner Leer = new Scanner(System.in);
 		boolean exit = false;
-		
+		TablaPersona tabla2 = new TablaPersona();
+		String nombre, apellido;
+		int edad;
 		do {
 			try {
 				System.out.println("DIME UNA DE LAS OPCIONES");
-				System.out.println("+----------------------------+");
-				System.out.println("| 1. Introducir Datos        |");
-				System.out.println("| 2. Mostrar Datos           |");
-				System.out.println("| 3. Salir                   |");
-				System.out.println("+----------------------------+");
+				System.out.println("+----------------------------------+");
+				System.out.println("| 1. Introducir Datos Persona      |");
+				System.out.println("| 2. Mostrar Datos                 |");
+				System.out.println("| 3. Salir                         |");
+				System.out.println("+----------------------------------+");
 				opc = Leer.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Valor numero pls");
@@ -51,10 +53,18 @@ public class principal {
 			
 			switch (opc) {
 				case 1:
-					datosPersona.crearPersona(file1, Leer);
+					System.out.print("Nombre: ");
+					nombre = Leer.next();
+					System.out.print("Apellido: ");
+					apellido = Leer.next();
+					System.out.print("Edad: ");
+					edad = Leer.nextInt();
+					persona p1;
+					// System.out.println(p1);
+					TablaPersona.escribirFichero(new persona(nombre, apellido, edad), file1);
 					break;
 				case 2:
-					datosPersona.mostrarPersona(file1);
+					// datosPersona.mostrarPersona(file1);
 					break;
 				case 3:
 					System.out.println("ADIOS");
@@ -68,5 +78,4 @@ public class principal {
 		Leer.close();
 		return opc;
 	}
-
 }
