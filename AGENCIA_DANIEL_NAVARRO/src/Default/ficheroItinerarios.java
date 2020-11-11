@@ -1,29 +1,23 @@
 package Default;
 
+import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
 
 public class ficheroItinerarios {
 
-	public String nombrefile;
 	public File archivo;
 	public FileReader archivo_r;
 	public BufferedReader archivo_BR;
 	public FileWriter archivo_f;
 	public BufferedWriter archivo_BW;
-	public ArrayList<itinerarios> test;
+	public ArrayList<itinerarios> test = new ArrayList<itinerarios>();
 	
 	public ficheroItinerarios() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getNombrefile() {
-		return nombrefile;
-	}
-
-	public void setNombrefile(String nombrefile) {
-		this.nombrefile = nombrefile;
-	}
+	
 
 	public File getArchivo() {
 		return archivo;
@@ -79,7 +73,7 @@ public class ficheroItinerarios {
 		
 	}
 	
-	public String leerItinerario(File archivo, itinerarios itinerarios, TablaItinerarios tablaItinerarios) {
+	public void leerItinerario(File archivo, itinerarios itinerarios, TablaItinerarios tablaItinerarios) {
 		
 		FileInputStream inputS;
 		try {
@@ -94,8 +88,9 @@ public class ficheroItinerarios {
 					
 					
 					String cadena = "";
-					int numero_dest = 0, n;
-		
+					int numero_dest;
+					String name;
+		/*
 					while ((cadena = archivo_BR.readLine()) != null) {
 						String name = archivo_BR.readLine();
 						n = numero_dest;
@@ -109,16 +104,25 @@ public class ficheroItinerarios {
 						test.add(leer);
 						
 					}
-					return archivo_BR.readLine();
+					*/
+					while ((cadena = archivo_BR.readLine()) != null) {
+						name = archivo_BR.readLine();
+						numero_dest = archivo_BR.read();
+						ArrayList<String> dest = new ArrayList<String>();
+						for (int i=0; i< numero_dest; i++) 
+								dest.add(archivo_BR.readLine());
 					
-				
+						itinerarios leer = new itinerarios(name, numero_dest, dest);
+						test.add(leer);
+					}
 			
+					System.out.println(test);
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		
 	}
 	
 	public void escribirItinerario(TablaItinerarios tablaItinerarios) {
