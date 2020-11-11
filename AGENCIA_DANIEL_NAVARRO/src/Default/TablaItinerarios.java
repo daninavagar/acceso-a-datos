@@ -69,9 +69,7 @@ public class TablaItinerarios {
 	}
 	public void ver() {
 		
-		for (int i=0; i<listaViajes.size(); i++) {
-			System.out.println("["+i+"]" + "\n " + listaViajes);
-		}
+		System.out.println(listaViajes);
 	}
 	@Override
 	public String toString() {

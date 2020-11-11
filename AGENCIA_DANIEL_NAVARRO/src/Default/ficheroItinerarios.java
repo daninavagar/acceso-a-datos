@@ -94,11 +94,13 @@ public class ficheroItinerarios {
 					
 					
 					String cadena = "";
-					
+					int numero_dest = 0, n;
 		
 					while ((cadena = archivo_BR.readLine()) != null) {
 						String name = archivo_BR.readLine();
-						int numero_dest = Integer.parseInt(archivo_BR.readLine());
+						n = numero_dest;
+						numero_dest = Integer.parseInt(archivo_BR.readLine());
+						
 						ArrayList<String> dest = new ArrayList<String>();
 						for (int i=0; i< numero_dest; i++) {
 							dest.add(archivo_BR.readLine());
@@ -119,7 +121,7 @@ public class ficheroItinerarios {
 		return null;
 	}
 	
-	public void escribirItinerario(itinerarios itinerarios, TablaItinerarios tablaItinerarios) {
+	public void escribirItinerario(TablaItinerarios tablaItinerarios) {
 		
 		FileWriter archivo_f = null;
 		String linea = "";

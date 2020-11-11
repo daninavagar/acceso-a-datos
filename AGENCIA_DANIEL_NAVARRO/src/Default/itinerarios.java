@@ -57,7 +57,7 @@ public class itinerarios {
 
 	@Override
 	public String toString() {
-		return ""+ nombre + "\n" + n_Destinos + " \n" + destinos;
+		return ""+ nombre + "\n" + n_Destinos + " \n" + destinos + "\n";
 	}
 	
 	

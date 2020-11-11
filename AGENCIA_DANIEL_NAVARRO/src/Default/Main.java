@@ -74,15 +74,15 @@ public class Main {
 					break;
 				case 4:
 					ficheroItinerarios.vaciar();
-					System.out.println("Se ha borrado el archivo");
+					System.out.println("Se ha vaciado el archivo");
 					break;
 				case 5:
 					System.out.println("Hola");
 					break;
 				case 6:
-					for (int i=0; i<tablaItinerario.listaViajes.size() ; i++) {
-						ficheroItinerarios.escribirItinerario(itinerarios, tablaItinerario);
-					}
+					
+						ficheroItinerarios.escribirItinerario(tablaItinerario);
+					
 					break;
 				case 7:
 					System.out.println("Hola");
