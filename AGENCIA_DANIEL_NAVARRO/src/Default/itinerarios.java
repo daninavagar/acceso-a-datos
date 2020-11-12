@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 public class itinerarios {
 
+	/* CLASE PARA ESCRIBIR*/
 	private String nombre;
 	private int n_Destinos;
 	private ArrayList<String> destinos = new ArrayList<String>();
+	
+	
 	
 	
 	public itinerarios(String nombre, int n_Destinos, ArrayList<String> destinos) {
@@ -20,9 +23,6 @@ public class itinerarios {
 	public itinerarios() {
 		super();
 	}
-
-
-	
 
 
 	public String getNombre() {
@@ -57,7 +57,7 @@ public class itinerarios {
 
 	@Override
 	public String toString() {
-		return ""+ nombre + "\n" + n_Destinos + " \n" + destinos + "\n";
+		return ""+ nombre + "-.....-" + n_Destinos + " -.....-" + destinos + "\n";
 	}
 	
 	

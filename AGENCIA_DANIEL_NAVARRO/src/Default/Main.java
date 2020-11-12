@@ -21,8 +21,6 @@ public class Main {
 		
 		ficheroItinerarios ficheroItinerarios  = new ficheroItinerarios();
 		TablaItinerarios tablaItinerario = new TablaItinerarios();
-		itinerarios itinerarios = new itinerarios();
-		// ficheroItinerarios.nombre();
 		ficheroItinerarios.abrir();
 		do {
 			try {
@@ -51,7 +49,7 @@ public class Main {
 			
 			switch (opcion) {
 				case 1:
-					ficheroItinerarios.leerItinerario(ficheroItinerarios.archivo, itinerarios, tablaItinerario);
+					ficheroItinerarios.leerItinerario(ficheroItinerarios.archivo);
 					break;
 				case 2:
 					System.out.print("Nombre: ");
@@ -77,27 +75,30 @@ public class Main {
 					System.out.println("Se ha vaciado el archivo");
 					break;
 				case 5:
-					System.out.println("Hola");
+					tablaItinerario.ver();
+					System.out.println("Que itinerario quieres modificar: ");
+					int modificar = Teclado.nextInt();
+					tablaItinerario.modificarItinerario(modificar);
+					
 					break;
 				case 6:
-					
 						ficheroItinerarios.escribirItinerario(tablaItinerario);
-					
 					break;
 				case 7:
-					System.out.println("Hola");
+					System.out.println("Separar");
 					break;
 				case 8:
 					tablaItinerario.ver();
 					break;
 				case 9:
-					System.out.println("Hola");
+					tablaItinerario.mostrarMenorMayor();
 					break;
 				case 10:
-					System.out.println("Hola");
+					tablaItinerario.mostrarMayorMenor();
 					break;
 				case 11:
-					System.out.println("Hola");
+					System.out.println("El mas solicitado es: ");
+					tablaItinerario.destinoRepe();
 					break;
 				case 12:
 					System.out.println("Hola");

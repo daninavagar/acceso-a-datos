@@ -3,6 +3,7 @@ package Default;
 import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ficheroItinerarios {
 
@@ -73,7 +74,7 @@ public class ficheroItinerarios {
 		
 	}
 	
-	public void leerItinerario(File archivo, itinerarios itinerarios, TablaItinerarios tablaItinerarios) {
+	public void leerItinerario(File archivo) {
 		
 		FileInputStream inputS;
 		try {
@@ -88,35 +89,15 @@ public class ficheroItinerarios {
 					
 					
 					String cadena = "";
-					int numero_dest;
-					String name;
-		/*
-					while ((cadena = archivo_BR.readLine()) != null) {
-						String name = archivo_BR.readLine();
-						n = numero_dest;
-						numero_dest = Integer.parseInt(archivo_BR.readLine());
-						
-						ArrayList<String> dest = new ArrayList<String>();
-						for (int i=0; i< numero_dest; i++) {
-							dest.add(archivo_BR.readLine());
-						}
-						itinerarios leer = new itinerarios(name, numero_dest, dest);
-						test.add(leer);
-						
-					}
-					*/
-					while ((cadena = archivo_BR.readLine()) != null) {
-						name = archivo_BR.readLine();
-						numero_dest = archivo_BR.read();
-						ArrayList<String> dest = new ArrayList<String>();
-						for (int i=0; i< numero_dest; i++) 
-								dest.add(archivo_BR.readLine());
+	
 					
-						itinerarios leer = new itinerarios(name, numero_dest, dest);
-						test.add(leer);
+					while ((cadena = archivo_BR.readLine()) != null) {
+						String[] tablita = cadena.split("-.....-");
+						Iti2 leerIti = new Iti2(tablita[0], tablita[1], tablita[2]);
+						System.out.println(Arrays.toString(tablita));
 					}
-			
-					System.out.println(test);
+					
+					
 			}
 			
 		} catch (IOException e) {
