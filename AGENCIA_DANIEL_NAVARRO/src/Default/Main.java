@@ -9,10 +9,9 @@ import java.util.Scanner;
 public class Main {
 
 	final static Scanner Teclado = new Scanner(System.in);
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		
+	
 		int opcion = 0;
 		boolean exit = false;
 		String nombre = null, temp;
@@ -21,7 +20,7 @@ public class Main {
 		
 		ficheroItinerarios ficheroItinerarios  = new ficheroItinerarios();
 		TablaItinerarios tablaItinerario = new TablaItinerarios();
-		ficheroItinerarios.abrir();
+		
 		do {
 			try {
 				System.out.println("+-------------------------------------------+");
@@ -49,20 +48,23 @@ public class Main {
 			
 			switch (opcion) {
 				case 1:
+					ficheroItinerarios.abrir();
 					ficheroItinerarios.leerItinerario(ficheroItinerarios.archivo);
 					break;
 				case 2:
+					ficheroItinerarios.abrir();
 					System.out.print("Nombre: ");
 					nombre = Teclado.next();
 					System.out.print("Numero de destinos: ");
 					n_destinos = Teclado.nextInt();
-					destinos2.clear();
+					destinos2 = new ArrayList<String>();
 					for (int i=0; i<n_destinos; i++) {
 						System.out.print("Introduce Destino:  ");
 						temp = Teclado.next();
 						destinos2.add(temp);
 					}
 					tablaItinerario.insertarFichero(new itinerarios(nombre, n_destinos, destinos2));
+					
 					break;
 				case 3:
 					tablaItinerario.ver();
@@ -78,8 +80,7 @@ public class Main {
 					tablaItinerario.ver();
 					System.out.println("Que itinerario quieres modificar: ");
 					int modificar = Teclado.nextInt();
-					tablaItinerario.modificarItinerario(modificar);
-					
+					tablaItinerario.modificarItinerario(modificar);	
 					break;
 				case 6:
 						ficheroItinerarios.escribirItinerario(tablaItinerario);
@@ -97,11 +98,10 @@ public class Main {
 					tablaItinerario.mostrarMayorMenor();
 					break;
 				case 11:
-					System.out.println("El mas solicitado es: ");
 					tablaItinerario.destinoRepe();
 					break;
 				case 12:
-					System.out.println("Hola");
+					System.out.println("GRACIAS POR VENIR");
 					exit = true;
 					break;
 			}

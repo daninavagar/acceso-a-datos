@@ -2,6 +2,7 @@ package Default;
 
 import java.util.ArrayList;
 
+
 public class itinerarios {
 
 	/* CLASE PARA ESCRIBIR*/
@@ -13,7 +14,6 @@ public class itinerarios {
 	
 	
 	public itinerarios(String nombre, int n_Destinos, ArrayList<String> destinos) {
-		super();
 		this.nombre = nombre;
 		this.n_Destinos = n_Destinos;
 		this.destinos = destinos;

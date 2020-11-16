@@ -1,19 +1,13 @@
 package Default;
 
-
-
 import java.util.ArrayList;
-
-
-
-
-
 
 
 public class TablaItinerarios {
 
 	
 	public ArrayList<itinerarios> listaViajes = new ArrayList<itinerarios>();
+	ficheroItinerarios ficherito = new ficheroItinerarios();
 
 	public TablaItinerarios(ArrayList<itinerarios> listaViajes) {
 		super();
@@ -69,34 +63,39 @@ public class TablaItinerarios {
 	
 	public void mostrarMenorMayor() {
 		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS*/
-		if (listaViajes.size() == 0) {
+		ficherito.abrir();
+		ficherito.leerItinerario(ficherito.getArchivo());
+		Iti2 temp;
+		if (ficherito.getTablita().size() == 0) {
 			System.err.println("No hay nada en la tabla");
 		} else {
-			for (int i=0; i<listaViajes.size(); i++) {
-				for (int f=0; f<listaViajes.size(); f++) {
-					if (listaViajes.get(i).getN_Destinos() < listaViajes.get(f).getN_Destinos()) {
-						int temp = listaViajes.get(i).getN_Destinos();
-						listaViajes.get(i).setN_Destinos(listaViajes.get(f).getN_Destinos());
-						listaViajes.get(f).setN_Destinos(temp);
+			for (int i=0; i<ficherito.getTablita().size(); i++) {
+				for (int f=i+1; f<ficherito.getTablita().size(); f++) {
+					if (Integer.parseInt(ficherito.getTablita().get(i).getN_Destinos()) < Integer.parseInt(ficherito.getTablita().get(f).getN_Destinos()) ) {
+						temp = ficherito.getTablita().get(i);
+						ficherito.getTablita().set(i, ficherito.getTablita().get(f));
+						ficherito.getTablita().set(f, temp);
 					}
 				}
 			}
 			ver();
-		}
-		
+		}	
 	}
 	
 	public void mostrarMayorMenor() {
 		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS*/
-		if (listaViajes.size() == 0) {
+		ficherito.abrir();
+		ficherito.leerItinerario(ficherito.getArchivo());
+		if (ficherito.getTablita().size() == 0) {
 			System.err.println("No hay nada en la tabla");
 		} else {
-			for (int i=0; i<listaViajes.size(); i++) {
-				for (int f=0; f<listaViajes.size(); f++) {
-					if (listaViajes.get(i).getN_Destinos() > listaViajes.get(f).getN_Destinos()) {
-						int temp = listaViajes.get(i).getN_Destinos();
-						listaViajes.get(i).setN_Destinos(listaViajes.get(f).getN_Destinos());
-						listaViajes.get(f).setN_Destinos(temp);
+			Iti2 temp;
+			for (int i=0; i<ficherito.getTablita().size(); i++) {
+				for (int f=i+1; f<ficherito.getTablita().size(); f++) {
+					if (Integer.parseInt(ficherito.getTablita().get(i).getN_Destinos()) > Integer.parseInt(ficherito.getTablita().get(f).getN_Destinos()) ) {
+						temp = ficherito.getTablita().get(i);
+						ficherito.getTablita().set(i, ficherito.getTablita().get(f));
+						ficherito.getTablita().set(f, temp);
 					}
 				}
 			}
@@ -105,11 +104,31 @@ public class TablaItinerarios {
 	}
 	
 	public void destinoRepe() {
+			
+		String Repe = " ";
+		int temp = 0;
 		
+		ficherito.leerItinerario(ficherito.getArchivo());
+			for (int i=0; i<ficherito.getTablita().size(); i++) {
+				int aux = 0;
+				for (int f=0; f<ficherito.getTablita().size(); f++) {
+					if (ficherito.getTablita().get(i).getDestinos() == ficherito.getTablita().get(f).getDestinos()) {
+						aux++;
+					}
+					if (aux > temp) {
+						temp = aux;
+						Repe = ficherito.getTablita().get(f).toString();
+					}
+				}
+			}
+			System.out.println("El destino mas repetido es " + Repe);	
+
+				
 	}
 	public void ver() {
 		
 		System.out.println(listaViajes);
+		
 	}
 	@Override
 	public String toString() {
