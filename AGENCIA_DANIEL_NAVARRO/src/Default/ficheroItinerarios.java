@@ -11,7 +11,6 @@ public class ficheroItinerarios {
 	public BufferedReader archivo_BR;
 	public FileWriter archivo_f;
 	public BufferedWriter archivo_BW;
-	public ArrayList<itinerarios> test = new ArrayList<itinerarios>();
 	public ArrayList<Iti2> tablita;
 	
 	public ficheroItinerarios() {
@@ -62,11 +61,11 @@ public class ficheroItinerarios {
 		return tablita;
 	}
 
-	public void abrir() {
+	public void abrir(String nombre) {
 			
 			
 			try {	
-				archivo = new File("Viajes.txt");
+				archivo = new File(nombre + ".txt");
 				archivo_f = new FileWriter(archivo, true);
 				archivo_BW = new BufferedWriter (archivo_f);
 				archivo_r = new FileReader(archivo);
@@ -89,7 +88,7 @@ public class ficheroItinerarios {
 	
 	public void leerItinerario(File archivo) {
 		
-		// abrir();
+		
 		FileInputStream inputS;
 		try {
 			if (archivo_BR.readLine() == null) {
@@ -135,7 +134,7 @@ public class ficheroItinerarios {
 		}
 		try {
 		
-			archivo_f = new FileWriter(archivo.getAbsoluteFile(), true);
+			archivo_f = new FileWriter(archivo.getAbsoluteFile(), false);
 			
 			archivo_BW = new BufferedWriter(archivo_f);
 			

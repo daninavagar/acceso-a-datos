@@ -1,6 +1,9 @@
 package Default;
 
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class TablaItinerarios {
@@ -18,7 +21,10 @@ public class TablaItinerarios {
 	
 	public void insertarFichero(itinerarios itinerarios) {
 		
-		listaViajes.add(itinerarios);
+		if (!listaViajes.isEmpty())
+			listaViajes.add(itinerarios);
+		else 
+			System.err.println("La tabla esta vacia, no se puede añadir nada");
 
 	}
 	
@@ -57,77 +63,117 @@ public class TablaItinerarios {
 	}
 	
 	public void separarFichero() {
+		ficherito.abrir("Viajes");
+		ficherito.leerItinerario(ficherito.archivo);
+		
+		try {
+			ficherito.abrir("primero");
+			ficherito.abrir("segundo");
+			
+			FileWriter primeroW = new FileWriter("primero.txt", true);
+			FileWriter segundoW = new FileWriter("segundo.txt", true);
+			
+			BufferedWriter primeroBW = new BufferedWriter(primeroW);
+			BufferedWriter segundoBW = new BufferedWriter(segundoW);
+			
+			for (int i=0; i<ficherito.tablita.size(); i++) {
+				if (Integer.parseInt(ficherito.tablita.get(i).getN_Destinos()) > 1) {
+					primeroBW.write(ficherito.tablita.get(i).toString());
+				} else {
+					segundoBW.write(ficherito.tablita.get(i).toString());
+				}
+				
+			}
+			primeroBW.close();
+			segundoBW.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
 	
 	public void mostrarMenorMayor() {
-		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS*/
-		ficherito.abrir();
-		ficherito.leerItinerario(ficherito.getArchivo());
-		Iti2 temp;
-		if (ficherito.getTablita().size() == 0) {
+		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS */
+		ficherito.abrir("Viajes");
+		ficherito.leerItinerario(ficherito.archivo);
+		ArrayList<Iti2> tablaOrdenar = ficherito.getTablita();
+		Iti2 temp = null;
+		if (!ficherito.tablita.isEmpty()) {
 			System.err.println("No hay nada en la tabla");
 		} else {
-			for (int i=0; i<ficherito.getTablita().size(); i++) {
-				for (int f=i+1; f<ficherito.getTablita().size(); f++) {
-					if (Integer.parseInt(ficherito.getTablita().get(i).getN_Destinos()) < Integer.parseInt(ficherito.getTablita().get(f).getN_Destinos()) ) {
-						temp = ficherito.getTablita().get(i);
-						ficherito.getTablita().set(i, ficherito.getTablita().get(f));
-						ficherito.getTablita().set(f, temp);
+			
+			for (int i=0; i<tablaOrdenar.size(); i++) {
+				for (int f=0; f<tablaOrdenar.size(); f++) {
+					if (Integer.parseInt(tablaOrdenar.get(i).getN_Destinos()) < Integer.parseInt(tablaOrdenar.get(f).getN_Destinos()) ) {
+						temp = tablaOrdenar.get(i);
+						tablaOrdenar.set(i, tablaOrdenar.get(f));
+						tablaOrdenar.set(f, temp);
 					}
 				}
 			}
-			ver();
-		}	
-	}
-	
-	public void mostrarMayorMenor() {
-		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS*/
-		ficherito.abrir();
-		ficherito.leerItinerario(ficherito.getArchivo());
-		if (ficherito.getTablita().size() == 0) {
-			System.err.println("No hay nada en la tabla");
-		} else {
-			Iti2 temp;
-			for (int i=0; i<ficherito.getTablita().size(); i++) {
-				for (int f=i+1; f<ficherito.getTablita().size(); f++) {
-					if (Integer.parseInt(ficherito.getTablita().get(i).getN_Destinos()) > Integer.parseInt(ficherito.getTablita().get(f).getN_Destinos()) ) {
-						temp = ficherito.getTablita().get(i);
-						ficherito.getTablita().set(i, ficherito.getTablita().get(f));
-						ficherito.getTablita().set(f, temp);
-					}
-				}
-			}
-			ver();
+			System.out.println(tablaOrdenar);
+			
 		}
 	}
 	
-	public void destinoRepe() {
+	
+	public void mostrarMayorMenor() {
+		/* SOLO CAMBIA DEL NUMERO DE DESTINOS FALTA CAMBIAR VALOR DE NOMBRE Y DEL ARRAY DESTINOS */
+		ficherito.abrir("Viajes");
+		ficherito.leerItinerario(ficherito.archivo);
+		Iti2 temp = null;
+		ArrayList<Iti2> tablaOrdenar = ficherito.getTablita();
+		if (!ficherito.tablita.isEmpty()) {
+			System.err.println("No hay nada en la tabla");
+		} else {
 			
-		String Repe = " ";
-		int temp = 0;
-		
-		ficherito.leerItinerario(ficherito.getArchivo());
-			for (int i=0; i<ficherito.getTablita().size(); i++) {
-				int aux = 0;
-				for (int f=0; f<ficherito.getTablita().size(); f++) {
-					if (ficherito.getTablita().get(i).getDestinos() == ficherito.getTablita().get(f).getDestinos()) {
-						aux++;
-					}
-					if (aux > temp) {
-						temp = aux;
-						Repe = ficherito.getTablita().get(f).toString();
+			for (int i=0; i<tablaOrdenar.size(); i++) {
+				for (int f=i+1; f<tablaOrdenar.size(); f++) {
+					if (Integer.parseInt(tablaOrdenar.get(i).getN_Destinos()) > Integer.parseInt(tablaOrdenar.get(f).getN_Destinos()) ) {
+						temp = tablaOrdenar.get(i);
+						tablaOrdenar.set(i, tablaOrdenar.get(f));
+						tablaOrdenar.set(f, temp);
 					}
 				}
 			}
+			System.out.println(tablaOrdenar);
+			
+		}
+	}
+	
+	
+	public void destinoRepe() {
+			
+		Iti2 Repe = null;
+		
+		
+		ficherito.abrir("Viajes");
+		ficherito.leerItinerario(ficherito.archivo);
+		ArrayList<String> diego = new ArrayList<String>();
+		int aux = 0, temp = -1;
+		
+		for (int i=0; i<ficherito.tablita.size(); i++) {
+				diego.add(ficherito.tablita.get(i).getDestinos());
+			
+		}
+		for (int i=0; i<diego.size(); i++) {
+			if (Collections.frequency(diego, diego.get(i)) > aux) {
+				temp = Collections.frequency(diego, diego.get(i));
+				temp = i;
+			}	
+		}
+			Repe = ficherito.tablita.get(temp);
 			System.out.println("El destino mas repetido es " + Repe);	
 
 				
 	}
 	public void ver() {
-		
-		System.out.println(listaViajes);
+		if (!listaViajes.isEmpty()) {
+			System.out.println(listaViajes);
+		} else {
+			System.err.println("La tabla está vacía");
+		}
 		
 	}
 	@Override

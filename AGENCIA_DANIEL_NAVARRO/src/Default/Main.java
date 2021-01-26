@@ -48,11 +48,11 @@ public class Main {
 			
 			switch (opcion) {
 				case 1:
-					ficheroItinerarios.abrir();
+					ficheroItinerarios.abrir("Viajes");
 					ficheroItinerarios.leerItinerario(ficheroItinerarios.archivo);
 					break;
 				case 2:
-					ficheroItinerarios.abrir();
+					ficheroItinerarios.abrir("Viajes");
 					System.out.print("Nombre: ");
 					nombre = Teclado.next();
 					System.out.print("Numero de destinos: ");
@@ -73,6 +73,7 @@ public class Main {
 					tablaItinerario.borrarItinerario(opt);
 					break;
 				case 4:
+					ficheroItinerarios.abrir("Viajes");
 					ficheroItinerarios.vaciar();
 					System.out.println("Se ha vaciado el archivo");
 					break;
@@ -83,10 +84,10 @@ public class Main {
 					tablaItinerario.modificarItinerario(modificar);	
 					break;
 				case 6:
-						ficheroItinerarios.escribirItinerario(tablaItinerario);
+					ficheroItinerarios.escribirItinerario(tablaItinerario);
 					break;
 				case 7:
-					System.out.println("Separar");
+					// tablaItinerario.separarFichero();
 					break;
 				case 8:
 					tablaItinerario.ver();
@@ -98,6 +99,7 @@ public class Main {
 					tablaItinerario.mostrarMayorMenor();
 					break;
 				case 11:
+					
 					tablaItinerario.destinoRepe();
 					break;
 				case 12:
