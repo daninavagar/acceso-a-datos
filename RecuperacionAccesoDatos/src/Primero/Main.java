@@ -1,0 +1,179 @@
+package Primero;
+
+import java.io.*;
+
+public class Main {
+
+	
+	// ESCRIBIR
+	public static void EscribirFicheroMismaLinea(String nfichero, Alumno tabla[]) {
+		
+		// 1. Creacion
+		
+		try {
+			File fichero = new File(nfichero);
+			FileWriter fw = new FileWriter(fichero);
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			// 2. Escribir
+			for (int i=0; i<tabla.length; i++) {
+				bw.write(tabla[i].getNombre());
+				bw.write(";"); // separador manual
+				bw.write(tabla[i].getApellido());
+			}
+			
+			
+			// 3. Cierre 
+			bw.close();
+		} catch (IOException e) {
+			System.err.println("Error el escribir: " + e.getMessage());
+		}
+		 
+		
+	}
+	
+	
+	public static void EscribirAlumnoCadaLinea(String nfichero, Alumno tabla[]) {
+		
+		// 1. Creacion
+		
+				try {
+					File fichero = new File(nfichero);
+					FileWriter fw = new FileWriter(fichero);
+					BufferedWriter bw = new BufferedWriter(fw);
+					
+					// 2. Escribir
+					for (int i=0; i<tabla.length; i++) {
+						bw.write(tabla[i].getNombre());
+						bw.write(";"); // separador manual
+						bw.write(tabla[i].getApellido());
+						bw.newLine();
+					}
+					
+					
+					// 3. Cierre 
+					bw.close();
+				} catch (IOException e) {
+					System.err.println("Error el escribir: " + e.getMessage());
+				}
+	}
+	public static void EscribirAlumnoLineaDistinta(String nfichero, Alumno tabla[]) {
+		
+		// 1. Creacion
+		
+				try {
+					File fichero = new File(nfichero);
+					FileWriter fw = new FileWriter(fichero);
+					BufferedWriter bw = new BufferedWriter(fw);
+					
+					// 2. Escribir
+					for (int i=0; i<tabla.length; i++) {
+						bw.write(tabla[i].getNombre());
+						bw.newLine();
+						bw.write(tabla[i].getApellido());
+						bw.newLine();
+					}
+					
+					
+					// 3. Cierre 
+					bw.close();
+				} catch (IOException e) {
+					System.err.println("Error el escribir: " + e.getMessage());
+				}
+	}
+	
+	
+	
+	// LECTURA
+	
+	public static void LeerFicheroDistintaLinea(String nfichero, Alumno tablaLeer[]) {
+		
+		// 1. Apertura
+		
+		try {
+			
+			File fichero = new File(nfichero);
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+			
+		// 2. Lectura
+			String linea; // = br.readLine();
+			int pos = 0;
+			String nombre, apellido;
+			while ( (linea = br.readLine() ) != null) {
+				nombre = linea;
+				apellido = br.readLine();
+				Alumno alumno = new Alumno(nombre, apellido);
+				
+				tablaLeer[pos] = alumno;
+				pos++;
+			}
+			
+			for (int i=0; i<tablaLeer.length; i++)
+				System.out.println(tablaLeer[i].toString());
+			
+		// 3. Cerrar
+			
+		br.close();
+		} catch (IOException e) {
+			System.err.println("Error al leer el archivo: " + e.getMessage());
+		}
+	}
+	
+	public static void LeerFicheroCadaLinea(String nfichero, Alumno tablaLeer2[]) {
+		
+		// 1. Apertura
+		
+		try {
+			
+			File fichero = new File(nfichero);
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+			
+		// 2. Lectura
+			String linea = br.readLine();
+			String separador = "";
+			String nombre, apellido;
+			int pos = 0;
+			while (linea != null) {
+				String aux[] = separador.split(";");
+				nombre = linea;
+				
+			}
+			
+		// 3. Cerrar
+			
+		br.close();
+		} catch (IOException e) {
+			System.err.println("Error al leer el archivo: " + e.getMessage());
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Alumno tabla[] = new Alumno[3];
+		
+		// Primera forma
+		tabla[0] = new Alumno("Pepe", "Martin");
+		tabla[1] = new Alumno("Ana", "Lopez");
+		tabla[2] = new Alumno("Juan", "Gomez");
+		
+		// Segundo forma
+		Alumno tabla2[] = {
+			new Alumno("Pepe", "Martin"),
+			new Alumno("Ana", "Lopez"),
+			new Alumno("Juan", "Gomez")
+		};
+		
+		EscribirFicheroMismaLinea("MismaLinea.txt", tabla);
+		EscribirAlumnoCadaLinea("AlumnosCadaLinea.txt", tabla);
+		EscribirAlumnoLineaDistinta("DistintaLinea.txt", tabla);
+		
+		Alumno tablaLeer[] = new Alumno[3];
+		Alumno tablaLeer2[] = new Alumno[3];
+		
+		LeerFicheroDistintaLinea("DistintaLinea.txt", tablaLeer);
+	}
+
+}
