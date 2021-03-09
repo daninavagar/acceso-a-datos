@@ -108,7 +108,7 @@ public class Main {
 				tablaLeer[pos] = alumno;
 				pos++;
 			}
-			
+			System.out.println("DistintaLinea");
 			for (int i=0; i<tablaLeer.length; i++)
 				System.out.println(tablaLeer[i].toString());
 			
@@ -131,14 +131,22 @@ public class Main {
 			BufferedReader br = new BufferedReader(fr);
 			
 		// 2. Lectura
-			String linea = br.readLine();
-			String separador = "";
+			String linea;
+			String separador = ";";
 			String nombre, apellido;
 			int pos = 0;
-			while (linea != null) {
-				String aux[] = separador.split(";");
-				nombre = linea;
+			while ( (linea = br.readLine() ) != null) {
+				String[] leer = linea.split(separador);
+				nombre = leer[0];
+				apellido = leer[1];
+				Alumno alumno = new Alumno(nombre, apellido);
+				tablaLeer2[pos++] = alumno;
 				
+				//pos++;
+			}
+			System.out.println("CadaLinea");
+			for (int i=0; i<tablaLeer2.length; i++) {
+				System.out.println(tablaLeer2[i]);
 			}
 			
 		// 3. Cerrar
@@ -174,6 +182,7 @@ public class Main {
 		Alumno tablaLeer2[] = new Alumno[3];
 		
 		LeerFicheroDistintaLinea("DistintaLinea.txt", tablaLeer);
+		LeerFicheroCadaLinea("AlumnosCadaLinea.txt",tablaLeer2);
 	}
 
 }
