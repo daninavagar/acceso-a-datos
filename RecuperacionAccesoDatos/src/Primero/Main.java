@@ -21,6 +21,7 @@ public class Main {
 				bw.write(tabla2[i].getNombre());
 				bw.write(separador);
 				bw.write(tabla2[i].getApellido());
+				bw.write(separador);
 			}
 			
 			// 3. Cierre 
@@ -109,7 +110,7 @@ public class Main {
 			}
 			System.out.println("Misma Linea");
 			for (int i=0; i<tablaLeer.length; i++)
-				System.out.println(tablaLeer[i]);
+				System.out.println(tablaLeer[i].toString());
 			
 		// 3. Cerrar
 			
@@ -207,7 +208,7 @@ public class Main {
 			new Alumno("Juan", "Gomez")
 		};
 		
-		// EscribirFicheroMismaLinea("MismaLinea.txt", tabla);
+		EscribirFicheroMismaLinea("MismaLinea.txt", tabla);
 		EscribirAlumnoCadaLinea("AlumnosCadaLinea.txt", tabla);
 		EscribirAlumnoLineaDistinta("DistintaLinea.txt", tabla);
 		
@@ -215,7 +216,7 @@ public class Main {
 		Alumno tablaLeer2[] = new Alumno[3];
 		Alumno tablaLeer3[] = new Alumno[3];
 		
-		LeerFicheroMismaLinea("MismaLinea.txt", tablaLeer);
+		// LeerFicheroMismaLinea("MismaLinea.txt", tablaLeer);
 		LeerFicheroDistintaLinea("DistintaLinea.txt", tablaLeer2);
 		LeerFicheroCadaLinea("AlumnosCadaLinea.txt",tablaLeer3);
 	}
