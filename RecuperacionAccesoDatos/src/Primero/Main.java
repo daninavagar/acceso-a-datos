@@ -191,6 +191,63 @@ public class Main {
 		}
 	}
 	
+	public static void LeerFicheroCadaLineaV2(String nfichero, Alumno tablaLeer3[]) {
+		
+		// 1. Apertura
+		
+		try {
+			
+			File fichero = new File(nfichero);
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+			
+		// 2. Lectura
+			String linea;
+			String separador = ";";
+			String nombre, apellido1, apellido2;
+			int pos = 0, posicionSeparadorInicial = 0, posicionSeparadorFinal;
+			linea = br.readLine();
+			while ( linea  != null) {
+				
+
+				posicionSeparadorInicial = 0;
+				posicionSeparadorFinal = linea.indexOf(";");
+				nombre = linea.substring(posicionSeparadorInicial, posicionSeparadorFinal); // 0 es la posicion del archivo
+				
+				posicionSeparadorInicial = posicionSeparadorFinal + 1;
+				posicionSeparadorFinal = linea.indexOf(";", posicionSeparadorInicial);
+				apellido1 = linea.substring(posicionSeparadorInicial, posicionSeparadorFinal); // length se refiere al final de linea
+				// linea.indexOf(apellido, pos)
+				
+				posicionSeparadorInicial = posicionSeparadorFinal + 1;
+				posicionSeparadorFinal = linea.indexOf(";", posicionSeparadorInicial);
+				
+				if (posicionSeparadorFinal == -1) {
+					posicionSeparadorFinal = linea.length();
+				}
+				apellido2 = linea.substring(posicionSeparadorInicial, posicionSeparadorFinal);
+				
+				Alumno alumno = new Alumno(nombre, apellido1);
+				tablaLeer3[pos++] = alumno;
+				linea = br.readLine();
+				
+				//pos++;
+			}
+			
+			
+			System.out.println("CadaLinea");
+			for (int i=0; i<tablaLeer3.length; i++) {
+				System.out.println(tablaLeer3[i]);
+			}
+			
+		// 3. Cerrar
+			
+		br.close();
+		} catch (IOException e) {
+			System.err.println("Error al leer el archivo: " + e.getMessage());
+		}
+	} 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -218,7 +275,8 @@ public class Main {
 		
 		// LeerFicheroMismaLinea("MismaLinea.txt", tablaLeer);
 		LeerFicheroDistintaLinea("DistintaLinea.txt", tablaLeer2);
-		LeerFicheroCadaLinea("AlumnosCadaLinea.txt",tablaLeer3);
+		// LeerFicheroCadaLinea("AlumnosCadaLinea.txt",tablaLeer3);
+		LeerFicheroCadaLineaV2("AlumnosCadaLinea.txt", tablaLeer3);
 	}
 
 }
