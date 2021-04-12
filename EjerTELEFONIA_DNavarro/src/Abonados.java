@@ -17,8 +17,12 @@ public class Abonados {
 		this.importe = importe;
 	}
 	
-	
-	
+
+
+
+
+
+
 	public int getN_origen() {
 		return n_origen;
 	}
@@ -52,9 +56,10 @@ public class Abonados {
 
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String toString() {
-		return "Abonados [n_origen=" + n_origen + ", n_destino=" + n_destino + ", fecha_llamada=" + fecha_llamada
+		return "Abonados [n_origen=" + n_origen + ", n_destino=" + n_destino + ", fecha_llamada=" + fecha_llamada.getDate() + "/" + fecha_llamada.getMonth() + "/" + fecha_llamada.getYear() 
 				+ ", duracion_llamada=" + duracion_llamada + ", importe=" + importe + "]";
 	}
 	
