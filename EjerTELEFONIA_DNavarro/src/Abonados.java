@@ -63,6 +63,10 @@ public class Abonados {
 				+ ", duracion_llamada=" + duracion_llamada + ", importe=" + importe + "]";
 	}
 	
+	public String toDate() {
+		return "En el mes " + fecha_llamada.getMonth()+1 + " --> " + "n_origen=" + n_origen + ", n_destino=" + n_destino + ", fecha_llamada=" + fecha_llamada.getDate() + "/" + fecha_llamada.getMonth() + "/" + fecha_llamada.getYear() 
+		+ ", duracion_llamada=" + duracion_llamada + ", importe=" + importe;
+	}
 	
 	
 	
