@@ -348,18 +348,12 @@ public class Main {
 		System.out.println("+------------------------------+");
 		System.out.println("|   LISTADO LLAMADAS POR MES   |");
 		System.out.println("+------------------------------+");
+
 		
 		
-		
-		ArrayList<Abonados> listaMes = new ArrayList<Abonados>();
-		listaMes = tabla1;
-		
-		
-		
-		
-		for (int i=0; i<listaMes.size();i++) {
-			if (listaMes.get(i).getFecha_llamada().getMonth()+1 == mes ) {
-				System.out.println(listaMes.get(i).toString());
+		for (int i=0; i<tabla1.size();i++) {
+			if (tabla1.get(i).getFecha_llamada().getMonth()+1 == mes ) {
+				System.out.println(tabla1.get(i).toString());
 			}
 		}
 
