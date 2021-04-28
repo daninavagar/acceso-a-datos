@@ -2,8 +2,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -83,13 +85,15 @@ public class Main {
 		Abonados temp = null;
 		for (int i=0; i<tabla1.size();i++) {
 			for (int f=i+1; f<tabla1.size();f++) {
-				if (tabla1.get(i).getN_origen() > tabla1.get(f).getN_origen()) {
+				if (tabla1.get(i).getN_origen() > tabla1.get(f).getN_origen() ) {
 					temp = tabla1.get(i);
 					tabla1.set(i, tabla1.get(f));
 					tabla1.set(f, temp);
 				}
 			}
 		}
+		
+		System.out.println(tabla1.toString());
 		
 		
 		
@@ -237,136 +241,24 @@ public class Main {
 			
 			
 			
-			ArrayList<Date> fechas = new ArrayList<Date>();
+			List<Date> fechas = new ArrayList<Date>();
 			for (int i=0; i<tabla1.size();i++)
 				fechas.add(tabla1.get(i).getFecha_llamada());
 			
-			
-				
+			ArrayList<Date> dates = new ArrayList<Date>();
+			for (int i=0; i<fechas.size();i++)
+				dates.add(fechas.get(i));
+			Collections.sort(fechas);
 			// RESUMEN Solo contar el dia y sumar todo. da igual el destino.
 			int cont = 0, x = 0, pos = 0, aux = 1;
 			
-			/*
-			for (int i=0; i<fechas.size();i++) {
-				
-				if (numeros.get(pos).equals(tabla1.get(i).getN_origen())) {
-					
-					fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
-					date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
-					
-					
-					for (int f=0; f<fechas.size();f++) {
-						
-						if (fechas.get(numero).equals(tabla1.get(f).getFecha_llamada())) {
-							
-							duraciontotal += tabla1.get(aux).getDuracion_llamada();
-							duracion = String.valueOf(duraciontotal);
-							aux++;
-						} else {
-							numero++;
-							duracion = String.valueOf(tabla1.get(aux).getDuracion_llamada());
-							aux++;
-						}
-				}
-					
-					bufferR.get(cont).write(date);
-					bufferR.get(cont).write(separador);
-					bufferR.get(cont).write(duracion);
-					bufferR.get(cont).write(separador);
-					bufferR.get(cont).newLine();
-					
-					x++;
-					
-				} else {
-					cont++;
-					pos++;
-					
-				}
-			}*/
-			/*
-			for (int i=0;i<tabla1.size();i++) {
-				if (numeros.indexOf(tabla1.get(i).getN_origen()) == -1)
-				fechas.add(tabla1.get(i).getN_origen());
-			}*/
-			/*
-			for (int i=0, f=0; i<tabla1.size();i++) {
-				if (numeros.get(pos).equals(tabla1.get(i).getN_origen())) {
-					
-					date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
-					
-					bufferR.get(cont).write(date);
-					bufferR.get(cont).write(separador);
-					if (fechas.get(aux).equals(tabla1.get(f).getFecha_llamada())) {
-						
-						duraciontotal += tabla1.get(x).getDuracion_llamada();
-						duracion = String.valueOf(duraciontotal);
-						importetotal += tabla1.get(x).getImporte();
-						importe = String.valueOf(importetotal);
-						
-						x++;
-						f++;
-						
-						bufferR.get(cont).write(duracion);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write(importe);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write("contador despues");
-						bufferR.get(cont).newLine();
-						
-					} else {
-						
-						aux++;
-						pos++;
-						cont++;
-						duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
-						importe = String.valueOf(tabla1.get(x).getImporte());
-						x++;
-						bufferR.get(cont).write(duracion);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write(importe);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write("contador despues");
-						bufferR.get(cont).newLine();
-						
-					}
-					
-					
-				} else {
-					
-					if (fechas.get(aux).equals(tabla1.get(f).getFecha_llamada())) {
-						
-						duraciontotal += tabla1.get(x).getDuracion_llamada();
-						duracion = String.valueOf(duraciontotal);
-						importetotal += tabla1.get(x).getImporte();
-						importe = String.valueOf(importetotal);
-						
-						bufferR.get(cont).write(duracion);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write(importe);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write("contador despues");
-						bufferR.get(cont).newLine();
-					} else {
-						
-						duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
-						importe = String.valueOf(tabla1.get(x).getImporte());
-						
-						bufferR.get(cont).write(duracion);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write(importe);
-						bufferR.get(cont).write(separador);
-						bufferR.get(cont).write("contador despues");
-						bufferR.get(cont).newLine();
-					}
-					
-					
-					
-					
-				}
-			}*/
+			
+			
+			
+			
 			String n_destino;
 			DateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
-			String date;
+			String date = "";
 			String duracion = null;
 			String importe;
 			String separador = ";";
@@ -376,92 +268,206 @@ public class Main {
 			int numero = 0, totalLlamadas = 0, duraciontotal = 0;
 			double  importetotal = 0; 
 			
+			for (int i=0; i<fechas.size();i++)
+				System.out.println(fechaFormato.format(fechas.get(i)));
 			
 			
-			for (int i=0; i<tabla1.size();i++) {
+			
+			for (int i=0; i<fechas.size();i++) {
 				
 				if (numeros.get(pos).equals(tabla1.get(i).getN_origen())) {
 					
-					if (fechas.get(numero).equals(tabla1.get(i).getFecha_llamada()) ) {
+					if (fechas.get(numero).equals(dates.get(x))) {
 						
 						totalLlamadas = 0;
-						date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
 						
-						if ( date.equals(fechaFormato.format(tabla1.get(x).getFecha_llamada())) ) {
-							
-							if ( date.equals(fechaFormato.format(tabla1.get(aux).getFecha_llamada())) ) {
-								bufferR.get(cont).write(date);
-								bufferR.get(cont).write(separador);
-								
-								for (int f=0; f<fechas.size();f++) {
-									if ( date.equals(fechaFormato.format(tabla1.get(f).getFecha_llamada())) ) {
-										totalLlamadas++;
-										duraciontotal += tabla1.get(f).getDuracion_llamada();
-										importetotal += tabla1.get(f).getImporte();
-									} 
-								}
-								
-							
-								numeroLlamadas = String.valueOf(totalLlamadas);
-								bufferR.get(cont).write(numeroLlamadas);
-								bufferR.get(cont).write(separador);
-								
-								duracion = String.valueOf(duraciontotal);
-								bufferR.get(cont).write(duracion);
-								bufferR.get(cont).write(separador);
-								
-								importe = String.valueOf(importetotal);
-								bufferR.get(cont).write(importe);
-								bufferR.get(cont).write(separador);
-								bufferR.get(cont).newLine();	
-							
-								aux++;
-								
-								
-								
-							}
-							
-						} else {
+						if (date.isEmpty()) {
+							date = fechaFormato.format(fechas.get(numero));
 							bufferR.get(cont).write(date);
 							bufferR.get(cont).write(separador);
+							for (int f=0; f<fechas.size();f++) {
+								if ( date.equals(fechaFormato.format(tabla1.get(f).getFecha_llamada())) ) {
+									totalLlamadas++;
+									duraciontotal += tabla1.get(f).getDuracion_llamada();
+									importetotal += tabla1.get(f).getImporte();
+								} 
+							}
+
+							numeroLlamadas = String.valueOf(totalLlamadas);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(duraciontotal);
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(importetotal);
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();	
+						
+							
+							numero++;
+							x++;
+						} else if (date.equals(fechaFormato.format(tabla1.get(x).getFecha_llamada()))){
+							date = fechaFormato.format(fechas.get(numero));
+							bufferR.get(cont).write(date);
+							bufferR.get(cont).write(separador);
+							
+							for (int f=0; f<fechas.size();f++) {
+								if ( date.equals(fechaFormato.format(tabla1.get(f).getFecha_llamada())) ) {
+									totalLlamadas++;
+									duraciontotal += tabla1.get(f).getDuracion_llamada();
+									importetotal += tabla1.get(f).getImporte();
+								} 
+							}
+
+							numeroLlamadas = String.valueOf(totalLlamadas);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(duraciontotal);
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(importetotal);
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();
+							numero++;
+							x++;
+						} else {
+							date = fechaFormato.format(fechas.get(numero));
+							numero++;
+							x++;
 						}
 						
 						
 						
+
+						
+						
+						
+	
 						
 					} else {
-						x++;
-						x++;
-						i++;
-						date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
+						date = fechaFormato.format(dates.get(numero));
 						
 						bufferR.get(cont).write(date);
 						bufferR.get(cont).write(separador);
+
+						// x+= totalLlamadas;
 						totalLlamadas = 1;
 						numeroLlamadas = String.valueOf(totalLlamadas);
 						bufferR.get(cont).write(numeroLlamadas);
 						bufferR.get(cont).write(separador);
 						
-						duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
+						duracion = String.valueOf(tabla1.get(numero).getDuracion_llamada());
 						bufferR.get(cont).write(duracion);
 						bufferR.get(cont).write(separador);
 						
-						importe = String.valueOf(tabla1.get(x).getImporte());
+						importe = String.valueOf(tabla1.get(numero).getImporte());
 						bufferR.get(cont).write(importe);
 						bufferR.get(cont).write(separador);
 						bufferR.get(cont).newLine();
 						
-						
-						
+						x++;
+						numero++;
+
 					}
+					// PRIMER IF DIFERENTE NUMERO
 				} else {
-					
+					cont++;
+					pos++;
+					if (fechas.get(numero).equals(dates.get(x))) {
+						
+						totalLlamadas = 0;
+						
+						if (date == null) {
+							date = fechaFormato.format(fechas.get(numero));
+							bufferR.get(cont).write(date);
+							bufferR.get(cont).write(separador);
+							for (int f=0; f<fechas.size();f++) {
+								if ( date.equals(fechaFormato.format(tabla1.get(f).getFecha_llamada())) ) {
+									totalLlamadas++;
+									duraciontotal += tabla1.get(f).getDuracion_llamada();
+									importetotal += tabla1.get(f).getImporte();
+								} 
+							}
+
+							numeroLlamadas = String.valueOf(totalLlamadas);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(duraciontotal);
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(importetotal);
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();	
+						
+							
+							numero++;
+							x++;
+						} else if (date.equals(fechaFormato.format(tabla1.get(x).getFecha_llamada()))){
+							date = fechaFormato.format(fechas.get(numero));
+							bufferR.get(cont).write(date);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(duraciontotal);
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(importetotal);
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();
+							numero++;
+							x++;
+						} else {
+							date = fechaFormato.format(fechas.get(numero));
+							numero++;
+							x++;
+						}
+						
+						
+						
+
+						
+						
+					} else {
+						
+						date = fechaFormato.format(dates.get(numero));
+						
+						bufferR.get(cont).write(date);
+						bufferR.get(cont).write(separador);
+
+						// x+= totalLlamadas;
+						totalLlamadas = 1;
+						numeroLlamadas = String.valueOf(totalLlamadas);
+						bufferR.get(cont).write(numeroLlamadas);
+						bufferR.get(cont).write(separador);
+						
+						duracion = String.valueOf(tabla1.get(numero).getDuracion_llamada());
+						bufferR.get(cont).write(duracion);
+						bufferR.get(cont).write(separador);
+						
+						importe = String.valueOf(tabla1.get(numero).getImporte());
+						bufferR.get(cont).write(importe);
+						bufferR.get(cont).write(separador);
+						bufferR.get(cont).newLine();
+						
+						x++;
+						numero++;
+						
+
+					}
 				}
-				
 			}
-			
-			
-			
 			
 			
 			
