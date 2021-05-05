@@ -447,17 +447,8 @@ public class Main {
 		} while (!exit);
 		
 		leer.close();
-		
-		
+
 	}
-
-
-
-	
-
-	
-
-	
-	
-
 }
+
+
