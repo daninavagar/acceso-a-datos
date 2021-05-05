@@ -9,6 +9,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.io.*;
 
 public class Main {
@@ -87,13 +89,22 @@ public class Main {
 		Abonados temp = null;
 		for (int i=0; i<tabla1.size();i++) {
 			for (int f=i+1; f<tabla1.size();f++) {
-				if (tabla1.get(i).getN_origen() > tabla1.get(f).getN_origen()) {
+				if (tabla1.get(i).getN_origen() > tabla1.get(f).getN_origen() ) {
 					temp = tabla1.get(i);
 					tabla1.set(i, tabla1.get(f));
 					tabla1.set(f, temp);
 				}
+				else if (tabla1.get(i).getN_origen() == tabla1.get(f).getN_origen()){
+					if (tabla1.get(i).getFecha_llamada().compareTo(tabla1.get(f).getFecha_llamada()) > 0)  {
+						temp = tabla1.get(i);
+						tabla1.set(i, tabla1.get(f));
+						tabla1.set(f, temp);
+					}
+				}
 			}
 		}
+		
+		System.out.println(tabla1.toString());
 		
 		
 		
@@ -103,7 +114,7 @@ public class Main {
 	
 	
 	
-	public static void CrearArchivos(ArrayList<Abonados> tabla1, ArrayList<File> nombres, ArrayList<Integer> numeros) {
+	public static void CrearArchivos(ArrayList<Abonados> tabla1, ArrayList<File> nombresD, ArrayList<File> nombresR, ArrayList<Integer> numeros) {
 		
 		
 		try {
@@ -120,10 +131,10 @@ public class Main {
 			for (int i=0; i<numeros.size(); i++) {
 				File nuevoD = new File("FicheroDetalle" + num  + ".txt");
 				nuevoD.createNewFile();
-				nombres.add(nuevoD);
+				nombresD.add(nuevoD);
 				File nuevoR = new File("FicheroResumen" + num  + ".txt");
 				nuevoR.createNewFile();
-				nombres.add(nuevoR);
+				nombresR.add(nuevoR);
 				num++;
 			}
 			
@@ -137,7 +148,7 @@ public class Main {
 	}
 	
 	
-	public static void escribirFicheroDetalle(ArrayList<Abonados> tabla1, ArrayList<File> nombres,
+	public static void escribirFicheroDetalle(ArrayList<Abonados> tabla1, ArrayList<File> nombresD,
 			ArrayList<Integer> numeros) {
 		
 		
@@ -150,8 +161,8 @@ public class Main {
 				ArrayList<FileWriter> writerD = new ArrayList<FileWriter>();
 				ArrayList<BufferedWriter> bufferD = new ArrayList<BufferedWriter>();
 						
-				for (int i=0; i<nombres.size();i++) {
-					FileWriter Detalle = new FileWriter(nombres.get(i++));
+				for (int i=0; i<nombresD.size();i++) {
+					FileWriter Detalle = new FileWriter(nombresD.get(i));
 					writerD.add(Detalle);
 					BufferedWriter BDetalle = new BufferedWriter(Detalle);
 					bufferD.add(BDetalle);
@@ -210,92 +221,11 @@ public class Main {
 						}			
 				}
 				
-				cont = 0;
-				x = 0;
-				pos = 0;
-				String numeroLlamadas = null;
-				int numero = 0;
-				int duraciontotal;
-				// RESUMEN Solo contar el dia y sumar todo. da igual el destino.
-				/*
-				for (int i=0; i<tabla1.size();i++) {
-					if ( numeros.get(pos).equals(tabla1.get(i).getN_origen()) ) {
-						
-						for (int f=0; i<tabla1.size();i++) {
-							if ( tabla1.get(f).getFecha_llamada().equals(tabla1.get(f).getFecha_llamada()) ) {
-								
-								duraciontotal = tabla1.get(x).getDuracion_llamada();
-								numero += duraciontotal;
-								duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
-							}
-						}
-					}
-				
-				}
-				
-				
-				
-				for (int i=0; i<tabla1.size(); i++) {
-					if ( numeros.get(pos).equals(tabla1.get(i).getN_origen()) ) {
-						
-						
-						fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
-						date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
-						
-						
-						
-					} else {
-					}
-				}
-				
-				
-				*/
-				
-				
-				
-				
 				
 				
 				for (int i=0; i<bufferD.size();i++) 
 					bufferD.get(i).close();
-				
-				
-				
 
-				
-				
-			
-//				
-//				for (int i=0;i<size; i++) {
-//					
-//					int aux = 0;
-//					 String origen = String.valueOf(tabla1.get(x).getN_origen());
-//					 fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
-//					 date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
-//					 duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
-//					 importe = String.valueOf(tabla1.get(x).getImporte());
-//					x++;
-//					
-//					buffer.get(cont).write(date);
-//					buffer.get(cont).write(";");
-//					if (origen != null) {
-//						aux++;
-//						String n = String.valueOf(aux);
-//						buffer.get(cont).write(n);
-//						buffer.get(cont).write(";");
-//					}
-//					
-//					buffer.get(cont).write(duracion);
-//					buffer.get(cont).write(";");
-//					buffer.get(cont).write(importe);
-//					cont++;
-//					cont++;
-//					
-//				}
-	//
-//				
-//				
-//				
 				
 			
 		} catch (IOException e) {
@@ -305,7 +235,7 @@ public class Main {
 		
 	}
 	
-	public static void escribirFicheroResumen(ArrayList<Abonados> tabla1, ArrayList<File> nombres,
+	public static void escribirFicheroResumen(ArrayList<Abonados> tabla1, ArrayList<File> nombresR,
 			ArrayList<Integer> numeros) {
 		
 		try {
@@ -313,19 +243,121 @@ public class Main {
 			ArrayList<FileWriter> writerR = new ArrayList<FileWriter>();
 			ArrayList<BufferedWriter> bufferR = new ArrayList<BufferedWriter>();
 					
-			for (int i=0; i<nombres.size();i++) {
-				FileWriter Resumen = new FileWriter(nombres.get(i));
+			for (int i=0; i<nombresR.size();i++) {
+				FileWriter Resumen = new FileWriter(nombresR.get(i));
 				writerR.add(Resumen);
 				BufferedWriter BResumen = new BufferedWriter(Resumen);
 				bufferR.add(BResumen);
 			}
 			
 			String n_destino;
-			DateFormat fechaFormato;
+			DateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
 			String date;
-			String duracion;
+			String duracion = null;
 			String importe;
 			String separador = ";";
+			
+			
+			String numeroLlamadas = null;
+			int numero = 0, duraciontotal = 0, totalLlamadas = 0;
+			double  importetotal = 0; 
+			
+			ArrayList<Date> fechas = new ArrayList<Date>();
+			for (int i=0; i<tabla1.size();i++)
+				fechas.add(tabla1.get(i).getFecha_llamada());
+			
+			
+			
+			// RESUMEN Solo contar el dia y sumar todo. da igual el destino.
+			int cont = 0, x = 0, pos = 0, aux = 1;
+			for (int i=0; i<tabla1.size();i++)
+				System.out.println(fechaFormato.format(fechas.get(i)));
+			
+			
+			for (int i=0; i<fechas.size();i++) {
+				if (fechas.get(cont).equals(tabla1.get(i).getFecha_llamada())) {
+					
+					if (numeros.get(numero).equals(tabla1.get(x).getN_origen())) {
+						
+					}
+				}
+			}
+
+			/*
+	        
+			for (int i=0; i<tabla1.size();i++) {
+				
+				if (numeros.get(pos).equals(tabla1.get(i).getN_origen())) {
+					if (fechas.get(numero).equals(tabla1.get(x).getFecha_llamada())) {
+						
+						totalLlamadas = 0;
+						date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
+						if (date.equals(fechaFormato.format(tabla1.get(aux).getFecha_llamada())) ) {
+							for (int f=0; f<tabla1.size();f++) {
+								if ( date.equals(fechaFormato.format(tabla1.get(f).getFecha_llamada())) ) {
+									totalLlamadas++;
+									duraciontotal += tabla1.get(f).getDuracion_llamada();
+									importetotal += tabla1.get(f).getImporte();
+								}
+							}
+							bufferR.get(cont).write(date);
+							bufferR.get(cont).write(separador);
+							numeroLlamadas = String.valueOf(totalLlamadas);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(duraciontotal);
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(importetotal);
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();
+							x++;
+							aux++;
+						} else {
+							x++;
+							date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
+							
+							
+							bufferR.get(cont).write(date);
+							bufferR.get(cont).write(separador);
+
+							// x+= totalLlamadas;
+							totalLlamadas = 1;
+							numeroLlamadas = String.valueOf(totalLlamadas);
+							bufferR.get(cont).write(numeroLlamadas);
+							bufferR.get(cont).write(separador);
+							
+							duracion = String.valueOf(tabla1.get(x).getDuracion_llamada());
+							bufferR.get(cont).write(duracion);
+							bufferR.get(cont).write(separador);
+							
+							importe = String.valueOf(tabla1.get(x).getImporte());
+							bufferR.get(cont).write(importe);
+							bufferR.get(cont).write(separador);
+							bufferR.get(cont).newLine();
+							
+							x++;
+							aux++;
+							
+							
+							
+						}
+						
+						
+					} else {
+//						numero++;
+//						date = fechaFormato.format(tabla1.get(x).getFecha_llamada());
+//						writerR.get(cont).write(date);
+//						writerR.get(cont).write(separador);
+//						x++;
+					}
+					
+				} // else distinto numero origen
+			}
+			*/
 			
 			
 			for (int i=0; i<bufferR.size();i++) 
@@ -351,9 +383,10 @@ public class Main {
 
 		
 		
+		DateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
 		for (int i=0; i<tabla1.size();i++) {
 			if (tabla1.get(i).getFecha_llamada().getMonth()+1 == mes ) {
-				System.out.println(tabla1.get(i).toString());
+				System.out.println(fechaFormato.format(tabla1.get(i).getFecha_llamada()));
 			}
 		}
 
@@ -365,15 +398,14 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		ArrayList<Abonados> tabla1 = new ArrayList<Abonados>();
-		ArrayList<File> nombres = new ArrayList<File>();
+		ArrayList<File> nombresD = new ArrayList<File>();
+		ArrayList<File> nombresR = new ArrayList<File>();
 		ArrayList<Integer> numeros = new ArrayList<Integer>();
 		
 		leerArchivo("TotalLlamadas.txt", tabla1);
-		CrearArchivos(tabla1, nombres, numeros);
+		CrearArchivos(tabla1, nombresD, nombresR, numeros);
 		
-		
-		
-		System.out.println(tabla1);
+
 		int opcion;
 		boolean exit = false;
 		Scanner leer = new Scanner(System.in);
@@ -397,8 +429,8 @@ public class Main {
 					mostrarLlamadas(tabla1 ,leer);
 					break;
 				case 2:
-					escribirFicheroDetalle(tabla1, nombres, numeros);
-					escribirFicheroResumen(tabla1, nombres, numeros);
+					escribirFicheroDetalle(tabla1, nombresD, numeros);
+					escribirFicheroResumen(tabla1, nombresR, numeros);
 					break;
 				case 3:
 					System.out.println("Adios");
