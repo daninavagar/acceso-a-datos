@@ -33,8 +33,8 @@ public class Main {
 				
 				String[] tablaAbonado = lineaDetalle.split(separador);
 				
-				String Origen = String.valueOf(n_origen);
-				Origen = tablaAbonado[0];
+				// String Origen = String.valueOf(n_origen);
+				String Origen = tablaAbonado[0];
 				n_origen = Integer.parseInt(Origen);
 				
 				String destino = String.valueOf(n_destino);
